@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded',function(){
   var daddy= document.getElementsByClassName('border')[0];
   var palete = document.querySelector('.palete');
+  var painting = false;
+  var colorselected='white';
   for(var i=0;i<784;i++){
     var cubes = document.createElement('div')
     cubes.className=`tile`;
@@ -11,10 +13,24 @@ document.addEventListener('DOMContentLoaded',function(){
     daddy.appendChild(cubes);
   }
   getPalete();
-  var colorselected='white';
-  palete. addEventListener('click',selectcolor());
-  console.log(colorselected);
-  // daddy.addEventListener('click')
+ palete.addEventListener('click',function(){
+      colorselected=event.target.style.backgroundColor;
+      console.log(colorselected)
+ });
+ daddy.addEventListener('mousedown',function(){
+   painting = true;
+     console.log(colorselected);
+ })
+ daddy.addEventListener('mouseup',function(){
+   painting = false;
+ })
+ daddy.addEventListener('mouseover',function(){
+   if(event.target.className==='tile' && painting){
+     event.target.style.backgroundColor = colorselected;
+   }
+ })
+
+ //daddy.addEventListener('click')
 
 })
 var getPalete = function() {
@@ -50,7 +66,6 @@ var getPalete = function() {
 
    for (var k of colors) {
      var color = document.createElement('div');
-     color.className=`${k}`
      color.style.backgroundColor= k;
      color.style.border = '1px solid black';
      color.style.float='left';
@@ -60,7 +75,7 @@ var getPalete = function() {
      palete.appendChild(color);
    }
  }
- var selectcolor=function(){
-   var colorselected= event.target;
-     console.log(colorselected);
- }
+ // var selectcolor=function(){
+ //      colorselected=event.target.style.backgroundColor;
+ //      console.log(colorselected)
+ // }
